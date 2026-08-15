@@ -52,7 +52,8 @@ namespace OneHourGameJam.Prop
                 var bullet = Instantiate(_bullet, _outPoint.position, Quaternion.identity);
                 bullet.GetComponent<Rigidbody2D>().linearVelocityY = _bulletSpeed;
                 _bulletCount--;
-                _bulletCountDisplay.text = $"{_bulletCount} shot{(_bulletCount > 1 ? "s" : "")} left";
+                if (_bulletCount == 0) _bulletCountDisplay.text = "Thanks for playing";
+                else _bulletCountDisplay.text = $"{_bulletCount} shot{(_bulletCount > 1 ? "s" : "")} left";
             }
         }
     }
