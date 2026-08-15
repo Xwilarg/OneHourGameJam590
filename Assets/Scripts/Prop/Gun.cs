@@ -1,21 +1,37 @@
-﻿using UnityEngine;
+﻿using OneHourGameJam.Manager;
+using TMPro;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace OneHourGameJam.Prop
 {
     public class Gun : MonoBehaviour
     {
+        private int _bulletCount;
+
+        [SerializeField]
+        private TMP_Text _bulletCountDisplay;
+
         [SerializeField]
         private GameObject _bullet;
 
         [SerializeField]
         private float _bulletSpeed;
 
+        [SerializeField]
+        private Transform _outPoint;
+
         private Camera _cam;
 
         private void Awake()
         {
             _cam = Camera.main;
+        }
+
+        private void Start()
+        {
+            _bulletCount = GirlManager.Instance.AmmoCount;
+            _bulletCountDisplay.text = $"{_bulletCount} shot{(_bulletCount > 1 ? "s" : "")} left";
         }
 
         private void Update()
@@ -31,10 +47,12 @@ namespace OneHourGameJam.Prop
 
         public void OnClick(InputAction.CallbackContext value)
         {
-            if (value.phase == InputActionPhase.Started)
+            if (value.phase == InputActionPhase.Started && _bulletCount > 0)
             {
-                var bullet = Instantiate(_bullet, transform.position, Quaternion.identity);
+                var bullet = Instantiate(_bullet, _outPoint.position, Quaternion.identity);
                 bullet.GetComponent<Rigidbody2D>().linearVelocityY = _bulletSpeed;
+                _bulletCount--;
+                _bulletCountDisplay.text = $"{_bulletCount} shot{(_bulletCount > 1 ? "s" : "")} left";
             }
         }
     }

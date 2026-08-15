@@ -1,3 +1,4 @@
+using OneHourGameJam.Manager;
 using System.Linq;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace OneHourGameJam.Prop
         private Node _node;
         private Rigidbody2D _rb;
 
-        private bool _isShotOnce = true;
+        private bool _isShotOnce = false;
 
         private void Awake()
         {
@@ -41,7 +42,13 @@ namespace OneHourGameJam.Prop
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (_isShotOnce) Destroy(gameObject);
-            else _sr.sprite = _nakedSprite;
+            else
+            {
+                _isShotOnce = true;
+                _sr.sprite = _nakedSprite;
+            }
+
+            GirlManager.Instance.HitTarget();
 
             Destroy(collision.gameObject);
         }
