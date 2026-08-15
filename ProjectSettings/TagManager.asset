@@ -44,14 +44,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Counter
+    uniqueID: 417081421
+    locked: 0
   - name: Top
     uniqueID: 2425682029
     locked: 0
-  - name: GirlShoot
-    uniqueID: 2480909499
-    locked: 0
   - name: Bullet
     uniqueID: 4068211351
+    locked: 0
+  - name: GirlShoot
+    uniqueID: 2480909499
     locked: 0
   m_RenderingLayers:
   - Default
